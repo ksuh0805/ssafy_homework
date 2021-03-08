@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>로또 추첨기</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        h3 {
+            margin: 10px 20px 10px;
+        }
+        .container {
+            width: 700px; height: 300px;
+            margin: 3px 10px 3px 10px;
+            line-height: 300px;
+            background: skyblue;
+            text-align: center;
+            border: solid 3px black;
+        }
+        span {
+            width: 100px; height: 100px;
+            background: yellow;
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 100px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <h3>대박을 기원합니다~~</h3>
+    <div class="container">
+        <span id="0" style="display:none">1</span>
+        <span id="1" style="display:none">2</span>
+        <span id="2" style="display:none">3</span>
+        <span id="3" style="display:none">4</span>
+        <span id="4" style="display:none">5</span>
+        <span id="5" style="display:none">6</span>
+    </div>
+
+    <script>
+        var ranNums = [];
+        function getRnum(){
+            return Math.floor(Math.random() * 44 + 1);
+        }
+        function popNum(i){
+            let num = 0;
+            do{
+                num = getRnum();
+                console.log(num);
+            }while(ranNums.includes(num));
+            ranNums[i] = num;
+            
+            $('#'+i).text(num).css('display', 'inline-block');
+        }
+        var n = 0;
+        start = setInterval(function(){
+            popNum(n);
+            n++;
+            if(n >= 6) clearInterval(start);
+        }, 1000);
+    </script>
+</body>
+</html>
