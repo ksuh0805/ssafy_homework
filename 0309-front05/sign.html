@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('#loginbtn').click(function(){
+			console.log('accesss');
+			$.ajax({
+				url: 'userlist.xml',
+				type: 'GET',
+				success: function(data){
+					getList(data);
+					console.log('success');
+				},
+				error: function(){
+					alert('다시 시도해주세요');
+					console.log('fail');
+				}
+			});
+		});
+		
+		function getList(data){
+			var id = $('#inputid').val();
+			var pwd = $('#inputpswd').val();
+			var userlist = ``;
+			var flag = false;
+			$(data).find('user').each(function(index, item){
+					console.log(id, $(this).find('id').text());
+				if($(this).find('id').text() == id && $(this).find('password').text() == pwd){
+						console.log(pwd, $(this).find('password').text());
+						$('#loginnav').css("display","none");
+						$('#signup').css("display","none");
+						$('#loginid').text(id);
+						$('#logoutnav').show();
+						$('#idnav').show();
+						alert("로그인되었습니다");
+						flag = true;
+						return false;
+				}
+			});
+			$('#inputid').val("");
+			$('#inputpswd').val("");
+			if(!flag){				
+				alert("해당하는 아이디/비밀번호가 존재하지 않습니다");
+			}
+		}
+		$('#logoutnav').click(function(){
+			$('#logoutnav').css("display","none");
+			$('#idnav').css("display","none");
+			$('#loginnav').show();
+			$('#signup').show();
+		});
+		$('#signup').click(function(){
+			$('.join').show();
+		});
+	});
+	</script>
+
+<title>회원가입</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="margin:0 0;">
+  <div class="container">
+  <div class="collapse navbar-collapse" id="nav_l">
+    <ul class="navbar-nav ml-auto justify-content-end">
+      <li class="nav-item" id="loginnav">
+        <a class="nav-link" data-toggle="modal" href="#loginModal">Login</a>
+      </li>
+      <li class="nav-item" id="idnav" style="display:none;">
+        <a class="nav-link" id="loginid" href="javascript:void(0)"></a>
+      </li>
+      <li class="nav-item" id="logoutnav" style="display:none;">
+        <a class="nav-link" href="javascript:void(0)">LogOut</a>
+      </li>
+      <li class="nav-item" id="signup">
+        <a class="nav-link" href="javascript:void(0)">Sign Up</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
+
+<div style="height:200px; line-height:200px; text-align:center; font-size:30px; color:white; background-color:#d3d3d3; margin:5px 5px auto; border-radius:5px;">행복한 우리집</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow" style="margin:5px 5px auto; border-radius:5px">
+  <div class="container">
+  <div class="collapse navbar-collapse" id="navb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link text-light" href="javascript:void(0)">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+	    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">동네정보</a>
+	    <div class="dropdown-menu">
+	      <a class="dropdown-item" href="#">제주시</a>
+	      <a class="dropdown-item" href="#">서귀포시</a>
+	    </div>
+	  </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">Notice</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">Contact</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
+
+<h2 class="join" style="display:none; margin:15px 15px 15px 15px;">Join Member</h2>
+
+<div class="join" style="display:none; height:620px; border:solid gray 1px; margin:0 10px; padding:20px 10px 20px 10px;">
+	<form class="was-validated">
+		  <div class="col">
+		  	<label for="ID" style="margin:0 17px 5px;">User ID (* 20자 이내)</label>
+		    <div class="col">
+		      <input type="text" class="form-control mb-2" id="ID" placeholder="ID" name="id" required>
+		    </div>
+		  	<label style="margin:0 17px 5px;">User Password (* 20자 이내)</label>
+		    <div class="col">
+		      <input type="password" class="form-control mb-2" placeholder="Password" name="pswd" required>
+		    </div>
+		  	<label style="margin:0 17px 5px;">User Password Confirm(* 20자 이내)</label>
+		    <div class="col">
+		      <input type="password" class="form-control mb-2" placeholder="Password" name="pswdcf" required>
+		    </div>
+		  	<label style="margin:0 17px 5px;">User Name (* 10자 이내)</label>
+		    <div class="col">
+		      <input type="text" class="form-control mb-2" placeholder="Name" name="name" required>
+		    </div>
+		  	<label style="margin:0 17px 5px;">User CellPhone (* 20자 이내)</label>
+		    <div class="col">
+		      <input type="number" class="form-control mb-2" placeholder="01012345678" name="phone" required>
+		    </div>
+		  	<label style="margin:0 17px 5px;">User E-mail (* 50자 이내)</label>
+		    <div class="col">
+		      <input type="email" class="form-control mb-2" placeholder="example@example.com" name="email" required>
+		    </div>
+		  	<label style="margin:0 17px 5px;">User Address (* 50자 이내)</label>
+		    <div class="col">
+		      <input type="text" class="form-control mb-2" placeholder="주소" name="addr" required>
+		    </div>
+		    <button style="margin:20px auto"type="submit" class="btn btn-primary mb-2 btn-block">JOIN IN</button>
+		  </div>
+		</form>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">LogIn</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form>
+		  <div class="col">
+		  	<label for="ID" style="margin:0 17px 5px;">ID:</label>
+		    <div class="col">
+		      <input type="text" class="form-control mb-2" id="inputid" placeholder="Enter ID" name="id">
+		    </div>
+		  	<label style="margin:0 17px 5px;">Password:</label>
+		    <div class="col">
+		      <input type="password" class="form-control mb-2" id="inputpswd" placeholder="Enter Password" name="pswd">
+		    </div>
+		  </div>
+		</form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">      
+        <button id="loginbtn" type="submit" class="btn btn-primary">Login</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

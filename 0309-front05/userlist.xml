@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<userlist>
+	<user>
+		<id>abc123</id>
+		<password>1234</password>
+		<name>abc</name> 
+		<phone>01012345678</phone> 
+		<email>abc123@gmail.com</email>
+		<addr>korea</addr>
+	</user>
+	<user>
+		<id>def456</id>
+		<password>0000</password>
+		<name>def</name> 
+		<phone>01087654321</phone>
+		<email>fed@gmail.com</email>
+		<addr>seoul</addr>
+	</user>
+	<user>
+		<id>xyz999</id>
+		<password>0909</password>
+		<name>xyz</name> 
+		<phone>01088889999</phone> 
+		<email>nine@gmail.com</email>
+		<addr>jeju</addr>
+	</user>
+</userlist>
