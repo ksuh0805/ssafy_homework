@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="com.ssafy.homework.model" />
+	
+	<!-- MyBatis-Spring 설정 
+		webapp / META-INF / context.xml 파일 추가
+		jdbc/ssafyhw - Resource name="jdbc/ssafyhw"
+	-->
+	<bean id="ds" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/ssafyhw"></property>
+	</bean>
+	
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<property name="mapperLocations" value="classpath:mappers/*.xml" />
+		<property name="typeAliasesPackage" value="com.ssafy.homework.model.dto"></property>
+	</bean>
+	
+	<!-- 매퍼 인터페이스 객체의 구현체를 빈으로 생성해서 관리해줘.. -->
+	<mybatis:scan base-package="com.ssafy.homework.model.repository"/>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+		
+</beans>
