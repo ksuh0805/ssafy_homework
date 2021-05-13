@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <style>
+      .container {
+        border: 1px solid whitesmoke;
+      }
+      .custom-form-group {
+        border: 1px solid whitesmoke;
+      }
+      .custom-form-group * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        vertical-align: middle;
+      }
+      .custom-form-group > label {
+        background-color: rgb(77, 107, 179);
+        color: white;
+        display: inline-block;
+        width: 20%;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+      }
+
+      .whitespace {
+        height: 40px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <h2 class="text-center text-primary my-3">SSAFY HRM ADD EMPLOEE</h2>
+      <div class="container whitespace"></div>
+        <emp-form></emp-form>
+      </div>
+    </div>
+
+    <script type="module">
+      import EmpForm from './EmpForm.js';
+      new Vue({
+        el: '#app',
+        components: { EmpForm },
+      });
+    </script>
+  </body>
+</html>
